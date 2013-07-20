@@ -17,7 +17,7 @@ describe "Home page" do
     end
 
     it "links to a client listing" do
-      expect(page).to have_content 'Clients'
+      expect(page).to have_link 'Clients', href: '/clients'
     end
   end
 end

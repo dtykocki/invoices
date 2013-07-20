@@ -7,19 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <%= link_to "Invoices", root_path, class: "brand" %>
-        <div class="nav-collapse collapse">
-          <ul class="nav">
-            <li><%= link_to "Clients", clients_path %></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= nav_bar brand: "Invoices", brand_link: root_path do %>
+    <%= menu_group do %>
+      <%= menu_item "Clients", clients_path %>
+    <% end %>
+  <% end %>
 
   <div class="container">
     <div class="row"><%= yield %></div>
