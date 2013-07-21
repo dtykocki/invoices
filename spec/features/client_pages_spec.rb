@@ -8,7 +8,7 @@ describe "Client pages" do
       FactoryGirl.create(:client, name: "Test Client", email: "example1@example.com")
       FactoryGirl.create(:client, name: "Another Client", email: "example2@example.com")
 
-      visit "/clients" 
+      visit clients_path 
     end
 
     it "lists each client" do
@@ -57,6 +57,38 @@ describe "Client pages" do
 
         expect { click_button "Create" }.to change(Client, :count).by(1)
       end
+    end
+  end
+
+  describe "edit" do
+    let(:client) { FactoryGirl.create(:client) }
+    
+    before { visit edit_client_path(client) }
+
+    context "with valid information" do
+      it "edits the client record" do
+        fill_in "Name",   with: "Client Two"
+        fill_in "Email",  with: "clienttwo@example.com"
+        click_button "Update"
+
+        expect(client.reload.name).to eq "Client Two"
+        expect(client.reload.email).to eq "clienttwo@example.com"
+      end
+    end
+
+    context "with invalid information" do
+
+    end
+  end
+
+  describe "destroy" do
+    before do
+      FactoryGirl.create(:client)
+      visit clients_path 
+    end
+
+    it "deletes a client" do
+      expect { click_link 'Delete', match: :first }.to change(Client, :count).by(-1)
     end
   end
 
