@@ -77,7 +77,13 @@ describe "Client pages" do
     end
 
     context "with invalid information" do
+      it "does not edit the client record" do
+        fill_in "Name",   with: ""
+        fill_in "Email",  with: ""
+        click_button "Update"
 
+        expect(page).to have_content('errors')
+      end
     end
   end
 
