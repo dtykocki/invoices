@@ -5,8 +5,8 @@ describe "Client pages" do
 
   describe "index" do
     before do 
-      FactoryGirl.create(:client, name: "Client 1", email: "example1@example.com")
-      FactoryGirl.create(:client, name: "Client 2", email: "example2@example.com")
+      FactoryGirl.create(:client, name: "Client 1", email: "example1@example.com", company_name: "Company 1")
+      FactoryGirl.create(:client, name: "Client 2", email: "example2@example.com", company_name: "Company 2")
 
       visit clients_path 
     end
@@ -16,6 +16,7 @@ describe "Client pages" do
         Client.all.each do |client|
           expect(page).to have_content client.name
           expect(page).to have_content client.email
+          expect(page).to have_content client.company_name
         end
       end
     end
@@ -46,16 +47,17 @@ describe "Client pages" do
 
     context "with invalid information" do
       it "does not create a client" do
-        expect { click_button "Create" }.not_to change(Client, :count)
+        expect { click_button "Save" }.not_to change(Client, :count)
       end
     end
 
     context "with valid information" do
       it "creates a new client" do
-        fill_in "Name",   with: "Example Client"
-        fill_in "Email",  with: "example_client@example.com"
+        fill_in "Name",     with: "Example Client"
+        fill_in "Email",    with: "example_client@example.com"
+        fill_in "Company",  with: "Example Company"
 
-        expect { click_button "Create" }.to change(Client, :count).by(1)
+        expect { click_button "Save" }.to change(Client, :count).by(1)
       end
     end
   end
@@ -67,12 +69,14 @@ describe "Client pages" do
 
     context "with valid information" do
       it "edits the client record" do
-        fill_in "Name",   with: "Client Two"
-        fill_in "Email",  with: "clienttwo@example.com"
-        click_button "Update"
+        fill_in "Name",     with: "Client Two"
+        fill_in "Email",    with: "clienttwo@example.com"
+        fill_in "Company",  with: "Company Two"
+        click_button "Save"
 
         expect(client.reload.name).to eq "Client Two"
         expect(client.reload.email).to eq "clienttwo@example.com"
+        expect(client.reload.company_name).to eq "Company Two"
       end
     end
 
@@ -80,7 +84,7 @@ describe "Client pages" do
       it "does not edit the client record" do
         fill_in "Name",   with: ""
         fill_in "Email",  with: ""
-        click_button "Update"
+        click_button "Save"
 
         expect(page).to have_content('errors')
       end

@@ -2,36 +2,4 @@
   <h1>Edit Client</h1>
 </div>
 
-<%= form_for @client, html: { class: "form-horizontal" } do |f| %>
-  <% if @client.errors.any? %>
-    <div class="alert alert-error">
-      The form contains <%= pluralize(@client.errors.count, "error") %>.
-    </div>
-    <ul>
-      <% @client.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <div class="control-group">
-    <%= f.label :name, class: "control-label" %>
-    <div class="controls">
-      <%= f.text_field :name, class: "text-field" %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :email, class: "control-label" %>
-    <div class="controls">
-      <%= f.text_field :email, class: "text-field" %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <div class="controls">
-      <%= f.submit "Update", class: "btn btn-primary" %>
-      <%= link_to "Cancel", clients_path, class: "btn" %>
-    </div>
-  </div>
-<% end %>
+<%= render 'form' %>
