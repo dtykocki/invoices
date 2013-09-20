@@ -5,8 +5,8 @@ describe "Client pages" do
 
   describe "index" do
     before do 
-      FactoryGirl.create(:client, name: "Test Client", email: "example1@example.com")
-      FactoryGirl.create(:client, name: "Another Client", email: "example2@example.com")
+      FactoryGirl.create(:client, name: "Client 1", email: "example1@example.com")
+      FactoryGirl.create(:client, name: "Client 2", email: "example2@example.com")
 
       visit clients_path 
     end

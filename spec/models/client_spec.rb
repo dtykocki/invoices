@@ -6,6 +6,7 @@ describe Client do
   describe "attributes" do
     it { expect(client).to validate_presence_of :name   }
     it { expect(client).to validate_presence_of :email  }
+    it { expect(client).to_not validate_presence_of :company_name }
   end
 
   private
