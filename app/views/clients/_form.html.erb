@@ -8,8 +8,7 @@
 
     <div class="form-actions">
       <%= f.button :submit, 'Save', class: 'btn-primary' %>
-      <%= submit_tag 'Cancel', type: :reset, class: 'btn btn-danger' %>
+      <%= link_to 'Cancel', clients_path, class: 'btn btn-danger' %>
     </div>
-
   </fieldset>
 <% end %>
