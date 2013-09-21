@@ -62,7 +62,7 @@ describe "Client pages" do
     end
   end
 
-  describe "edit" do
+  describe "Client edit" do
     let(:client) { FactoryGirl.create(:client) }
     
     before { visit edit_client_path(client) }
@@ -81,12 +81,13 @@ describe "Client pages" do
     end
 
     context "with invalid information" do
-      it "does not edit the client record" do
-        fill_in "Name",   with: ""
-        fill_in "Email",  with: ""
-        click_button "Save"
+      context "with a blank email address" do
+        it "requies an email address" do
+          fill_in "Email", with: ""
+          click_button "Save"
 
-        expect(page).to have_content('errors')
+          expect(page).to have_content("can't be blank")
+        end
       end
     end
   end
