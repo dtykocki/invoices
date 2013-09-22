@@ -7,8 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= nav_bar brand: "Invoices", brand_link: root_path do %>
+  <%= nav_bar brand: "Fake Company", brand_link: root_path do %>
     <%= menu_group do %>
+      <%= menu_item "Invoices", root_path %>
       <%= menu_item "Clients", clients_path %>
     <% end %>
   <% end %>

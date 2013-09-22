@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130920085130) do
+ActiveRecord::Schema.define(version: 20130922191803) do
 
   create_table "clients", force: true do |t|
     t.string   "name"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20130920085130) do
     t.string   "city"
     t.string   "state",          limit: 2
     t.string   "zip_code",       limit: 5
+  end
+
+  create_table "invoices", force: true do |t|
+    t.integer  "unique_id"
+    t.datetime "due_date"
+    t.decimal  "amount",     precision: 8, scale: 2
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

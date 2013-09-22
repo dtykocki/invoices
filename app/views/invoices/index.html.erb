@@ -1,0 +1,23 @@
+<h1>Invoices</h1>
+<div class="well">
+  <table id="invoices" class="table">
+    <thead>
+      <tr>
+        <th>Invoice ID</th>
+        <th>Due Date</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoices.each do |invoice| %>
+        <tr>
+          <td><%= invoice.unique_id %></td>
+          <td><%= invoice.due_date.strftime("%d %b %Y") %></td>
+          <td><%= number_to_currency(invoice.amount) %></td>
+          <td><%= invoice.status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
