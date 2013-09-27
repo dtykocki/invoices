@@ -9,6 +9,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem "twitter-bootstrap-rails", git: 'https://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'simple_form', git: 'https://github.com/plataformatec/simple_form.git'
+gem 'devise'
 
 group :doc do
   gem 'sdoc', require: false

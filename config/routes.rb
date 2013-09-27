@@ -1,4 +1,5 @@
 Invoices::Application.routes.draw do
+  devise_for :users
   root to: 'invoices#index'
 
   resources :clients
