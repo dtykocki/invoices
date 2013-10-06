@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130927090012) do
+ActiveRecord::Schema.define(version: 20131006181552) do
 
   create_table "clients", force: true do |t|
     t.string   "name"
@@ -24,7 +24,10 @@ ActiveRecord::Schema.define(version: 20130927090012) do
     t.string   "city"
     t.string   "state",          limit: 2
     t.string   "zip_code",       limit: 5
+    t.integer  "user_id"
   end
+
+  add_index "clients", ["user_id"], name: "index_clients_on_user_id"
 
   create_table "invoices", force: true do |t|
     t.integer  "unique_id"
