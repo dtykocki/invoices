@@ -2,6 +2,12 @@ Invoices::Application.routes.draw do
   devise_for :users
   root to: 'invoices#index'
 
+  namespace :api do
+    namespace :v1 do
+      resources :clients
+    end
+  end
+
   resources :clients
 
   # The priority is based upon order of creation: first created -> highest priority.
