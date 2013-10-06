@@ -7,6 +7,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
+
+gem "therubyracer"
+gem "less-rails" 
 gem 'twitter-bootstrap-rails', git: 'https://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'simple_form', git: 'https://github.com/plataformatec/simple_form.git'
 gem 'devise'
