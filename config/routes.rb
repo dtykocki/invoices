@@ -1,5 +1,6 @@
 Invoices::Application.routes.draw do
   devise_for :users
+
   root to: 'invoices#index'
 
   namespace :api do
