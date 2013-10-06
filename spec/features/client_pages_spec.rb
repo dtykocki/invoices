@@ -3,10 +3,13 @@ require 'spec_helper'
 describe "Client pages" do
   subject { page }
 
+  let(:user) { FactoryGirl.create(:user) }
+  before { sign_in user }
+
   describe "index" do
     before do 
-      FactoryGirl.create(:client, name: "Client 1", email: "example1@example.com", company_name: "Company 1")
-      FactoryGirl.create(:client, name: "Client 2", email: "example2@example.com", company_name: "Company 2")
+      FactoryGirl.create(:client, user: user, name: "Client 1", email: "example1@example.com", company_name: "Company 1")
+      FactoryGirl.create(:client, user: user, name: "Client 2", email: "example2@example.com", company_name: "Company 2")
 
       visit clients_path 
     end
@@ -63,7 +66,7 @@ describe "Client pages" do
   end
 
   describe "Client edit" do
-    let(:client) { FactoryGirl.create(:client) }
+    let(:client) { FactoryGirl.create(:client, user: user) }
     
     before { visit edit_client_path(client) }
 
@@ -94,12 +97,12 @@ describe "Client pages" do
 
   describe "destroy" do
     before do
-      FactoryGirl.create(:client)
+      FactoryGirl.create(:client, user: user)
       visit clients_path 
     end
 
     it "deletes a client" do
-      expect { click_link 'Delete', match: :first }.to change(Client, :count).by(-1)
+      expect { click_link 'Delete', match: :first }.to change(user.clients, :count).by(-1)
     end
   end
 

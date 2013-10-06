@@ -1,3 +1,5 @@
 class Client < ActiveRecord::Base
-  validates :name, :email, presence: true
+  validates :name, :email, :user_id, presence: true
+
+  belongs_to :user
 end
