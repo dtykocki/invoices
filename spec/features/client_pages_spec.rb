@@ -16,7 +16,7 @@ describe "Client pages" do
 
     it "lists each client" do
       within_table('clients') do
-        Client.all.each do |client|
+        user.clients.each do |client|
           expect(page).to have_content client.name
           expect(page).to have_content client.email
           expect(page).to have_content client.company_name
@@ -30,7 +30,7 @@ describe "Client pages" do
 
     it "links to the client edit page" do
       within_table('clients') do
-        Client.all.each do |client|
+        user.clients.each do |client|
           expect(page).to have_link "Edit", href: "/clients/#{client.id}/edit"
         end
       end
@@ -38,7 +38,7 @@ describe "Client pages" do
 
     it "links to the client destroy action" do
       within_table('clients') do
-        Client.all.each do |client|
+        user.clients.each do |client|
           expect(page).to have_link "Delete", href: "/clients/#{client.id}"
         end
       end
@@ -105,6 +105,5 @@ describe "Client pages" do
       expect { click_link 'Delete', match: :first }.to change(user.clients, :count).by(-1)
     end
   end
-
 end
 

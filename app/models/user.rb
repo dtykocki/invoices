@@ -3,4 +3,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :clients
+  has_many :invoices, through: :clients
 end
