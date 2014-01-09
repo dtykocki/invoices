@@ -7,3 +7,13 @@ def sign_in(user)
 
   click_button "Sign in"
 end
+
+def oauth_sign_in(user)
+  create_client_app(user: user, name: "Spec")
+end
+
+def create_client_app(options)
+  user = options[:user]
+  name = options[:name] 
+  Opro::Oauth::ClientApp.create_with_user_and_name(user, name)
+end
