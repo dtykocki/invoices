@@ -14,6 +14,18 @@ module Api
         @client = current_user.clients.where(params[:id]).first
         respond_with @client, status: :ok
       end
+
+      def create
+        @client = current_user.clients.build(client_params)
+        @client.save
+        respond_with @client, status: :created
+      end
+
+      private
+
+      def client_params
+        params.require(:client).permit(:name, :email, :company_name)
+      end
     end
   end
 end

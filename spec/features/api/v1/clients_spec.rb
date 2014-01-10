@@ -48,6 +48,21 @@ describe "clients API", type: :api do
   end
 
   describe "create" do
+    it "creates a new client for the user" do
+      body = {
+        client: {
+          name:         "Test Client",
+          email:        "client@example.com",
+          company_name: "Test Company"
+        }
+      }
+      post "/api/v1/clients.json", body, @authorization
+
+      client = Client.last
+      serializer = ClientSerializer.new client
+      expect(last_response.status).to eql(201)
+      expect(serializer.to_json).to eql(last_response.body)
+    end
   end
 
   describe "update" do
