@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe "Clients API", type: :api do
-  let(:user)      { FactoryGirl.create(:user) }
+describe "clients API", type: :api do
+  let(:user) { FactoryGirl.create(:user) }
 
   before do
     app = create_client_app(user)
@@ -14,7 +14,8 @@ describe "Clients API", type: :api do
     }
     post "oauth/token.json", params
     body  = JSON.parse(last_response.body)
-    @token = body["access_token"]
+    token = body["access_token"]
+    @authorization = { "HTTP_AUTHORIZATION" => "Bearer #{token}" }
   end
 
   describe "index" do
@@ -24,11 +25,25 @@ describe "Clients API", type: :api do
     end
 
     it "should return each client" do
-      get "/api/v1/clients.json", {}, { "HTTP_AUTHORIZATION" => "Bearer #{@token}" }
+      get "/api/v1/clients.json", {}, @authorization
 
+      serializer = ActiveModel::ArraySerializer.new(user.clients, each_serializer: ClientSerializer)
       expect(last_response.status).to eq(200)
-      clients = JSON.parse(last_response.body)
-      expect(clients.length).to eq(2)
+      expect(serializer.to_json).to eql(last_response.body)
+    end
+  end
+
+  describe "show" do
+    let(:client) { FactoryGirl.build(:client) }
+
+    before { user.clients << client }
+
+    it "should return the requested client" do
+      get "/api/v1/clients/#{client.id}.json", {}, @authorization
+
+      serializer = ClientSerializer.new client
+      expect(last_response.status).to eql(200)
+      expect(serializer.to_json).to eql(last_response.body)
     end
   end
 
