@@ -11,7 +11,7 @@ module Api
       end
 
       def show
-        @client = current_user.clients.where(params[:id]).first
+        @client = current_client
         respond_with @client, status: :ok
       end
 
@@ -22,12 +22,22 @@ module Api
       end
 
       def update
-        @client = current_user.clients.where(params[:id]).first
+        @client = current_client
         @client.update_attributes(client_params)
         respond_with @client, status: :ok
       end
 
+      def destroy
+        @client = current_client
+        @client.destroy
+        respond_with @client, status: :ok
+      end
+
       private
+
+      def current_client
+        current_user.clients.where(params[:id]).first
+      end
 
       def client_params
         params.require(:client).permit(:name, :email, :company_name)

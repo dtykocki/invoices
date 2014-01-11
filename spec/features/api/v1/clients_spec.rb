@@ -29,13 +29,12 @@ describe "clients API", type: :api do
 
       serializer = ActiveModel::ArraySerializer.new(user.clients, each_serializer: ClientSerializer)
       expect(last_response.status).to eq(200)
-      expect(serializer.to_json).to eql(last_response.body)
+      expect(last_response.body).to eql(serializer.to_json)
     end
   end
 
   describe "show" do
     let(:client) { FactoryGirl.build(:client) }
-
     before { user.clients << client }
 
     it "should return the requested client" do
@@ -43,7 +42,7 @@ describe "clients API", type: :api do
 
       serializer = ClientSerializer.new client
       expect(last_response.status).to eql(200)
-      expect(serializer.to_json).to eql(last_response.body)
+      expect(last_response.body).to eql(serializer.to_json)
     end
   end
 
@@ -61,7 +60,7 @@ describe "clients API", type: :api do
       client = Client.last
       serializer = ClientSerializer.new client
       expect(last_response.status).to eql(201)
-      expect(serializer.to_json).to eql(last_response.body)
+      expect(last_response.body).to eql(serializer.to_json)
     end
   end
 
@@ -85,5 +84,13 @@ describe "clients API", type: :api do
   end
 
   describe "delete" do
+    let(:client) { FactoryGirl.build(:client) }
+    before { user.clients << client }
+
+    it "deletes the specified client" do
+      delete "/api/v1/clients/#{client.id}.json", {}, @authorization
+
+      expect(last_response.status).to eql(204)
+    end
   end
 end
