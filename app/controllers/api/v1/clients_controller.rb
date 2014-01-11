@@ -21,6 +21,12 @@ module Api
         respond_with @client, status: :created
       end
 
+      def update
+        @client = current_user.clients.where(params[:id]).first
+        @client.update_attributes(client_params)
+        respond_with @client, status: :ok
+      end
+
       private
 
       def client_params

@@ -66,6 +66,22 @@ describe "clients API", type: :api do
   end
 
   describe "update" do
+    let(:client) { FactoryGirl.build(:client) }
+
+    before { user.clients << client }
+
+    it "updates the specified client" do
+      body = {
+        client: {
+          name:         "Updated Client",
+          email:        "updated@example.com",
+          company_name: "Updated Company"
+        }
+      }
+      put "/api/v1/clients/#{client.id}.json", body, @authorization
+
+      expect(last_response.status).to eql(204)
+    end
   end
 
   describe "delete" do
