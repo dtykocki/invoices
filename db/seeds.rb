@@ -1,12 +1,6 @@
-c = Client.new(name: "Test Client", email: "testclient@example.com", company_name: "Test Company")
-
 u = User.where(email: "tykockda@gmail.com").first
-u.clients << c
 
-invoices = []
-(1..20).each do |i|
-  invoice = Invoice.new(unique_id: i, due_date: Date.today, amount: 2.00, status: "Draft")
-  invoices << invoice
+(1..100).each do |i|
+  c = Client.new(name: "Client #{i}", email: "testclient@example.com", company_name: "Company #{i}")
+  u.clients << c
 end
-
-c.invoices << invoices
