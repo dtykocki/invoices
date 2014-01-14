@@ -5,6 +5,8 @@ describe "invoices API" do
   let(:client)  { FactoryGirl.build(:client) }
   let(:auth)    { Authentication.generate_auth(user) }
 
+  before { user.clients << client }
+
   describe "index" do
     before do
       client.invoices << FactoryGirl.build(:invoice)
