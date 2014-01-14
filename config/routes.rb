@@ -6,7 +6,9 @@ Invoices::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :clients
+      resources :clients do
+        resources :invoices
+      end
     end
   end
 

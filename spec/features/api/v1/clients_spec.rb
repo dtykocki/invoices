@@ -2,21 +2,7 @@ require 'spec_helper'
 
 describe "clients API", type: :api do
   let(:user) { FactoryGirl.create(:user) }
-
-  before do
-    app = create_client_app(user)
-    params = {
-      username:       user.email,
-      password:       user.password,
-      client_id:      app.client_id,
-      client_secret:  app.client_secret,
-      grant_type:     "password"
-    }
-    post "oauth/token.json", params
-    body  = JSON.parse(last_response.body)
-    token = body["access_token"]
-    @authorization = { "HTTP_AUTHORIZATION" => "Bearer #{token}" }
-  end
+  let(:auth) { Authentication.generate_auth(user) }
 
   describe "index" do
     before do
@@ -25,7 +11,7 @@ describe "clients API", type: :api do
     end
 
     it "should return each client" do
-      get "/api/v1/clients.json", {}, @authorization
+      get "/api/v1/clients.json", {}, auth
 
       serializer = ActiveModel::ArraySerializer.new(user.clients, each_serializer: ClientSerializer)
       expect(last_response.status).to eq(200)
@@ -38,7 +24,7 @@ describe "clients API", type: :api do
     before { user.clients << client }
 
     it "should return the requested client" do
-      get "/api/v1/clients/#{client.id}.json", {}, @authorization
+      get "/api/v1/clients/#{client.id}.json", {}, auth
 
       serializer = ClientSerializer.new client
       expect(last_response.status).to eql(200)
@@ -55,7 +41,7 @@ describe "clients API", type: :api do
           company_name: "Test Company"
         }
       }
-      post "/api/v1/clients.json", body, @authorization
+      post "/api/v1/clients.json", body, auth
 
       client = Client.last
       serializer = ClientSerializer.new client
@@ -77,7 +63,7 @@ describe "clients API", type: :api do
           company_name: "Updated Company"
         }
       }
-      put "/api/v1/clients/#{client.id}.json", body, @authorization
+      put "/api/v1/clients/#{client.id}.json", body, auth
 
       expect(last_response.status).to eql(204)
     end
@@ -88,7 +74,7 @@ describe "clients API", type: :api do
     before { user.clients << client }
 
     it "deletes the specified client" do
-      delete "/api/v1/clients/#{client.id}.json", {}, @authorization
+      delete "/api/v1/clients/#{client.id}.json", {}, auth
 
       expect(last_response.status).to eql(204)
     end
