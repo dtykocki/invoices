@@ -9,6 +9,13 @@ module Api
         @invoices = client.invoices
         respond_with @invoices, status: :ok
       end
+
+      def show
+        client = current_user.clients.where(params[:client_id]).first
+        @invoice = client.invoices.where(params[:id]).first
+        respond_with @invoice, status: :ok
+      end
+
     end
   end
 end

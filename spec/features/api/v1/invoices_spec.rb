@@ -21,4 +21,18 @@ describe "invoices API" do
       expect(last_response.body).to eql(serializer.to_json)
     end
   end
+
+  describe "show" do
+    let(:invoice) { FactoryGirl.build(:invoice) }
+
+    before { client.invoices << invoice }
+
+    it "should return the specified invoice for the client" do
+      get "/api/v1/clients/#{client.id}/invoices/#{invoice.id}.json", {}, auth
+
+      serializer = InvoiceSerializer.new invoice
+      expect(last_response.status).to eql(200)
+      expect(last_response.body).to eql(serializer.to_json)
+    end
+  end
 end
