@@ -33,6 +33,7 @@ group :development, :test do
   gem 'guard-rspec', '2.5.1'
   gem 'launchy'
   gem "oauth2"
+  gem "byebug"
 end
 
 group :production do
