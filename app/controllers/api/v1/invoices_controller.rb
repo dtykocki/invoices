@@ -16,12 +16,8 @@ module Api
 
       def create
         @invoice = client.invoices.build(invoice_params)
-        if @invoice.valid?
-          @invoice.save
-          respond_with @invoice, status: :created, location: api_v1_client_invoices_url(@invoice)
-        else
-
-        end
+        @invoice.save
+        respond_with @invoice, status: :created, location: api_v1_client_invoices_url(@invoice)
       end
 
       def update
@@ -31,6 +27,9 @@ module Api
       end
 
       def destroy
+        @invoice = client.invoices.where(params[:id]).first
+        @invoice.destroy
+        respond_with @invoice, status: :ok
       end
 
       private

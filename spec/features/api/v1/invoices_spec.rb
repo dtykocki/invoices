@@ -75,5 +75,14 @@ describe "invoices API" do
   end
 
   describe "destroy" do
+    let(:invoice) { FactoryGirl.build(:invoice) }
+
+    before { client.invoices << invoice }
+
+    it "deletes the specified invoice for the client" do
+      delete "/api/v1/clients/#{client.id}/invoices/#{invoice.id}.json", {}, auth
+
+      expect(last_response.status).to eql(204)
+    end
   end
 end
