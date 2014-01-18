@@ -17,6 +17,7 @@ gem 'opro'
 gem 'active_model_serializers'
 gem 'puma'
 gem 'rubysl', "~> 2.0", platform: :rbx
+gem 'newrelic_rpm'
 
 group :doc do
   gem 'sdoc', require: false

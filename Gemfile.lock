@@ -134,6 +134,7 @@ GEM
     multi_json (1.7.7)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
+    newrelic_rpm (3.7.1.182)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oauth2 (0.9.2)
@@ -474,6 +475,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   less-rails
+  newrelic_rpm
   oauth2
   opro
   pg
