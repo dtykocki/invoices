@@ -1,6 +1,8 @@
 module Api
   module V1
     class InvoicesController < ApplicationController
+      skip_before_filter :verify_authenticity_token
+      before_filter :authenticate_user!
       respond_to :json
       allow_oauth!
 
@@ -35,7 +37,7 @@ module Api
       private
 
       def client
-        @client ||= current_user.clients.where(params[:client_id]).first
+        @client ||= current_user.clients.where(id: params[:client_id]).first
       end
 
       def invoice_params
