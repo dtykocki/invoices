@@ -6,18 +6,14 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'jbuilder', '~> 1.2'
 
-gem "therubyracer"
-gem "less-rails" 
-gem 'twitter-bootstrap-rails', git: 'https://github.com/seyhunak/twitter-bootstrap-rails.git'
-gem 'simple_form', git: 'https://github.com/plataformatec/simple_form.git'
 gem 'devise'
 gem 'opro'
 gem 'active_model_serializers'
 gem 'puma'
 gem 'rubysl', "~> 2.0", platform: :rbx
 gem 'newrelic_rpm'
+gem 'bootstrap-sass', '~> 3.0.3.0'
 
 group :doc do
   gem 'sdoc', require: false

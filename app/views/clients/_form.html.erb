@@ -1,14 +1,40 @@
-<%= simple_form_for @client, html: { class: 'form-horizontal' } do |f| %>
-  <fieldset>
-    <legend><%= controller.action_name.capitalize %> Client</legend>
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Client <small>New</small></h1>
 
-    <%= f.input :company_name, label: "Company" %>
-    <%= f.input :name %>
-    <%= f.input :email %>
+    <%= form_for @client, role: "form" do |f| %>
 
-    <div class="form-actions">
-      <%= f.button :submit, 'Save', class: 'btn-primary' %>
-      <%= link_to 'Cancel', clients_path, class: 'btn btn-danger' %>
-    </div>
-  </fieldset>
-<% end %>
+      <div class="form-group">
+        <%= f.label :company_name %>
+        <div class="row">
+          <div class="col-sm-6">
+            <%= f.text_field :company_name, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :name %>
+        <div class="row">
+          <div class="col-sm-6">
+            <%= f.text_field :name, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <div class="row">
+          <div class="col-sm-6">
+            <%= f.text_field :email, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "Save", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -2,5 +2,5 @@ class Invoice < ActiveRecord::Base
   belongs_to :user
   belongs_to :client
 
-  validates :due_date, presence: true
+  validates :amount, :status, :due_date, :client, presence: true
 end
