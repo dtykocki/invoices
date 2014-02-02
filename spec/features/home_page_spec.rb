@@ -13,7 +13,7 @@ describe "Home page" do
 
   describe "Main navigation" do
     it "displays the application name" do
-      expect(page).to have_selector '.navbar a.brand', text: 'Fake Company'
+      expect(page).to have_selector '.navbar .navbar-brand', text: 'Invoices'
     end
 
     it "links to a client listing" do
