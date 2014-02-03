@@ -1,15 +1,12 @@
-<%= simple_form_for @invoice, html: { class: 'form-horizontal' } do |f| %>
-  <fieldset>
-    <legend><%= controller.action_name.capitalize %> Invoice</legend>
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Invoice <small>New</small></h1>
+    <p><%= link_to "Back to Invoices", invoices_path %></p>
 
-    <%= f.association :client, collection: @clients %>
-    <%= f.input :due_date, as: :date %>
-    <%= f.input :amount %>
-    <%= f.input :status, collection: [ "Draft", "Sent", "Paid"] %>
-
-    <div class="form-actions">
-      <%= f.button :submit, 'Save', class: 'btn-primary' %>
-      <%= link_to 'Cancel', invoices_path, class: 'btn btn-danger' %>
-    </div>
-  </fieldset>
-<% end %>
+    <%= form_for @invoice, role: "form" do |f| %>
+      <div class="form-group">
+        <%= f.submit "Save", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

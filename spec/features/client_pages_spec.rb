@@ -27,22 +27,6 @@ describe "Client pages" do
     it "links to the client creation page" do
       expect(page).to have_link "New Client", href: "/clients/new"
     end
-
-    it "links to the client edit page" do
-      within_table('clients') do
-        user.clients.each do |client|
-          expect(page).to have_link "Edit", href: "/clients/#{client.id}/edit"
-        end
-      end
-    end
-
-    it "links to the client destroy action" do
-      within_table('clients') do
-        user.clients.each do |client|
-          expect(page).to have_link "Delete", href: "/clients/#{client.id}"
-        end
-      end
-    end
   end
 
   describe "create" do
@@ -96,13 +80,11 @@ describe "Client pages" do
   end
 
   describe "destroy" do
-    before do
-      FactoryGirl.create(:client, user: user)
-      visit clients_path 
-    end
+    let(:client) { FactoryGirl.create(:client, user: user) }
+    before { visit clients_path }
 
     it "deletes a client" do
-      expect { click_link 'Delete', match: :first }.to change(user.clients, :count).by(-1)
+      expect { click_link "#{client.id}-delete" }.to change(user.clients, :count).by(-1)
     end
   end
 end
